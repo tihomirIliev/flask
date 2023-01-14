@@ -1,0 +1,9 @@
+deployment:
+  name: myflask
+  replicas: 1
+  image: ecr
+  port: 5000
+  tag: latest
+  env: dev
+service:
+  port: 80  
