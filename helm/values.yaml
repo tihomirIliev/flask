@@ -1,7 +1,7 @@
 deployment:
   name: myflask
   replicas: 1
-  image: ecr
+  image: 798169696925.dkr.ecr.us-east-1.amazonaws.com/myapp
   port: 5000
   tag: latest
   env: dev
