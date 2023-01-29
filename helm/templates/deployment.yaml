@@ -15,5 +15,11 @@ spec:
       containers:
         - name: {{ .Values.deployment.name }}
           image: "{{ .Values.deployment.image }}:{{ .Values.deployment.tag }}"
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.deployment.port }}
+          envFrom:
+          - configMapRef:
+              name: "{{ .Values.deployment.name }}-config"    
+      imagePullSecrets:
+        - name: ecrsecret        
