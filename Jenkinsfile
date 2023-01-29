@@ -42,7 +42,7 @@ pipeline {
 			}
 			steps{
 				sh '''
-					kubectl create namespace dev
+					kubectl get namespace | grep -w "dev" || kubectl create namespace dev
 					kubectl create secret generic ecrsecret \
 					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
 					  --type=kubernetes.io/dockerconfigjson \
@@ -59,7 +59,7 @@ pipeline {
 			}
 			steps{
 				sh '''
-					kubectl create namespace uat
+					kubectl get namespace | grep -w "uat" || kubectl create namespace uat
 					kubectl create secret generic ecrsecret \
 						--from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
 						--type=kubernetes.io/dockerconfigjson \
@@ -77,7 +77,7 @@ pipeline {
 			}
 			steps{
 				sh '''
-					kubectl create namespace prod
+					kubectl get namespace | grep -w "prod" || kubectl create namespace prod
 					kubectl create secret generic ecrsecret \
 						--from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
 						--type=kubernetes.io/dockerconfigjson \
