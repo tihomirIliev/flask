@@ -14,7 +14,7 @@ pipeline {
 		stage('Test'){
 			steps{
 				sh '''
-					docker run -dit -p 5000:5000 $image_name:$GIT_COMMIT
+					sudo lsof -i :5000 || docker run -dit -p 5000:5000 $image_name:$GIT_COMMIT
 					sleep 5
 					curl localhost:5000
 					exit_status=$?
