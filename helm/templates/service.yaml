@@ -10,4 +10,4 @@ spec:
         - protocol: TCP
           port: {{ .Values.service.port }}
           targetPort: {{ .Values.deployment.port }}  
-          nodePort: 30000  
+            
