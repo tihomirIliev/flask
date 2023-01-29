@@ -5,14 +5,14 @@ pipeline {
         }
 	stages{
 		stage('Build'){
-			step{
+			steps{
 				sh '''
 					docker build -t "$image_name:$GIT_COMMIT" .
 				'''
 			}
 		}
 		stage('Test'){
-			step{
+			steps{
 				sh '''
 					docker run -dit -p 5000:5000 $image_name:$GIT_COMMIT
 					sleep 5
@@ -27,7 +27,7 @@ pipeline {
 
 		}
 		stage('Push'){
-			step{
+			steps{
 				sh '''
 					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 798169696925.dkr.ecr.us-east-1.amazonaws.com
 					docker push $image_name:$GIT_COMMIT
@@ -40,7 +40,7 @@ pipeline {
 					env.BRANCH_NAME == "development"
 				}
 			}
-			step{
+			steps{
 				sh '''
 					kubectl create namespace dev
 					kubectl create secret generic ecrsecret \
@@ -54,10 +54,10 @@ pipeline {
 		stage('Deploy_UAT'){
 			when{
 				expression{
-       			             	env.BRANCH_NAME == "uat"
+        		               env.BRANCH_NAME == "uat"
 				}
 			}
-			step{
+			steps{
 				sh '''
 					kubectl create namespace uat
 					kubectl create secret generic ecrsecret \
@@ -69,13 +69,13 @@ pipeline {
 			}
 
 		}
-	        stage('Deploy_PROD'){
+       		stage('Deploy_PROD'){
 			when{
 				expression{
 					env.BRANCH_NAME == "main"
 				}
 			}
-			step{
+			steps{
 				sh '''
 					kubectl create namespace prod
 					kubectl create secret generic ecrsecret \
