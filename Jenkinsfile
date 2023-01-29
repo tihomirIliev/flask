@@ -54,7 +54,7 @@ pipeline {
 		stage('Deploy_UAT'){
 			when{
 				expression{
-                    env.BRANCH_NAME == "uat"
+       			             	env.BRANCH_NAME == "uat"
 				}
 			}
 			step{
@@ -72,7 +72,7 @@ pipeline {
 	        stage('Deploy_PROD'){
 			when{
 				expression{
-						env.BRANCH_NAME == "main"
+					env.BRANCH_NAME == "main"
 				}
 			}
 			step{
