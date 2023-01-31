@@ -47,7 +47,7 @@ pipeline {
 			steps{
 				sh '''
 					kubectl create namespace dev
-					kubectl get secret ecrsecret --namespace=default -oyaml yaml | kubectl apply --namespace=dev -f -
+					kubectl get secret ecrsecret --namespace=default -oyaml > ecrsecret.yaml | kubectl apply --namespace=dev -f ecrsecret.yaml
 					helm upgrade flask helm/ --atomic --wait --install --namespace=dev --set deployment.tag=$GIT_COMMIT --set deployment.env=dev
 				'''
 			}
