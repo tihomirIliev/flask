@@ -31,10 +31,6 @@ pipeline {
 				sh '''
 					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 798169696925.dkr.ecr.us-east-1.amazonaws.com
 					docker push $image_name:$GIT_COMMIT
-					
-					kubectl create secret generic ecrsecret \
-					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
-					  --type=kubernetes.io/dockerconfigjson
 				'''	
 			}	
 		}
@@ -46,7 +42,13 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace dev --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=dev
+					kubectl get namespace dev && echo "namespace dev exists" || kubectl create namespace dev
+					kubectl get secrets ecrsecret -n dev || kubectl create secret generic ecrsecret \
+					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
+					  --type=kubernetes.io/dockerconfigjson \
+					  --namespace=dev
+					
+					helm upgrade flask helm/ --atomic --wait --install --namespace=dev --set deployment.tag=$GIT_COMMIT --set deployment.env=dev
 				'''
 			}
 		}
@@ -58,7 +60,13 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace uat --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=uat       
+					kubectl get namespace uat && echo "namespace uat exists" || kubectl create namespace uat
+					kubectl get secrets ecrsecret -n uat || kubectl create secret generic ecrsecret \
+					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
+					  --type=kubernetes.io/dockerconfigjson \
+					  --namespace=uat
+					
+					helm upgrade flask helm/ --atomic --wait --install --namespace=uat --set deployment.tag=$GIT_COMMIT --set deployment.env=uat       
 				'''
 			}
 
@@ -71,7 +79,13 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace prod --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=prod       
+					kubectl get namespace prod && echo "namespace prod exists" || kubectl create namespace prod
+					kubectl get secrets ecrsecret -n prod || kubectl create secret generic ecrsecret \
+					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
+					  --type=kubernetes.io/dockerconfigjson \
+					  --namespace=prod
+					
+					helm upgrade flask helm/ --atomic --wait --install --namespace=prod --set deployment.tag=$GIT_COMMIT --set deployment.env=prod       
 				'''
 			}
 		}
