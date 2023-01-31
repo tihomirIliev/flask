@@ -29,11 +29,17 @@
 ![start_pipeline](https://user-images.githubusercontent.com/44411127/215773339-6515c136-3988-4189-93fc-ac98dac3c1fd.PNG)
  
 
-### Tools used:
+### Tools used
   - Terraform
   - Docker 
   - Kind/Kubernetes
   - Helm
   - Git
   - Jenkins
+
+### License
+  Tihomir Iliev
+  email: tisho.xmg@gmail.com
+  linkedin: linkedin.com/in/tihomir-iliev-50333016a
+  
 
