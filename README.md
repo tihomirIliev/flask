@@ -1,5 +1,5 @@
 ### This is Multibranch Pipeline setup for deploying a simple flask application to Kind Kubernetes
-### Three types of branches are used - developments, staging, main (production)
+### Three types of branches have to be created - developments, staging, main (production)
 
 ### Usage
   - Create IAM user and login to AWS with "aws configure" 
