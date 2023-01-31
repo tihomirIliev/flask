@@ -28,10 +28,10 @@
 
 ![start_pipeline](https://user-images.githubusercontent.com/44411127/215773339-6515c136-3988-4189-93fc-ac98dac3c1fd.PNG)
  
-### After the deployments are completed, the flask app can be accessed locally on the EC2 instance. In the CLI type "curl 'NODE IP':'NODEPORT'".
-### / - show "Hello World"
-### /pragmatic - show the environment. 
-### /picture - show the html 
+After the deployments are completed, the flask app can be accessed locally on the EC2 instance. In the CLI type "curl 'NODE IP':'NODEPORT'".
+ / - show "Hello World"
+ /pragmatic - show the environment. 
+ /picture - show the html 
 
 ### Technologies used
   - AWS (EC2, ECR, IAM)	
