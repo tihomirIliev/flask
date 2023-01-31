@@ -46,7 +46,9 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace dev --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=dev
+					kubectl create namespace dev
+					kubectl get secret ecrsecret --namespace=default --export -o yaml | kubectl apply --namespace=dev -f -
+					helm upgrade flask helm/ --atomic --wait --install --namespace=dev --set deployment.tag=$GIT_COMMIT --set deployment.env=dev
 				'''
 			}
 		}
@@ -58,7 +60,9 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace uat --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=uat       
+					kubectl create namespace uat
+					kubectl get secret ecrsecret --namespace=default --export -o yaml | kubectl apply --namespace=uat -f -
+					helm upgrade flask helm/ --atomic --wait --install --namespace=uat --set deployment.tag=$GIT_COMMIT --set deployment.env=uat       
 				'''
 			}
 
@@ -71,7 +75,9 @@ pipeline {
 			}
 			steps{
 				sh '''
-					helm upgrade flask helm/ --atomic --wait --install --namespace prod --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=prod       
+					kubectl create namespace prod
+					kubectl get secret ecrsecret --namespace=default --export -o yaml | kubectl apply --namespace=prod -f -
+					helm upgrade flask helm/ --atomic --wait --install --namespace=prod --set deployment.tag=$GIT_COMMIT --set deployment.env=prod       
 				'''
 			}
 		}
