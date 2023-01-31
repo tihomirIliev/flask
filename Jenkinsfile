@@ -32,7 +32,7 @@ pipeline {
 					aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 798169696925.dkr.ecr.us-east-1.amazonaws.com
 					docker push $image_name:$GIT_COMMIT
 					
-					kubectl create secret generic ecrsecret \
+					kubectl get secrets ecrsecret || kubectl create secret generic ecrsecret \
 					  --from-file=.dockerconfigjson=/var/lib/jenkins/.docker/config.json \
 					  --type=kubernetes.io/dockerconfigjson
 				'''	
