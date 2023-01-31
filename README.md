@@ -39,8 +39,8 @@
   - Jenkins
 
 ### License
-  Tihomir Iliev
-  email: tisho.xmg@gmail.com
-  linkedin: linkedin.com/in/tihomir-iliev-50333016a
+  - Tihomir Iliev
+  - email: tisho.xmg@gmail.com
+  - linkedin: linkedin.com/in/tihomir-iliev-50333016a
   
 
