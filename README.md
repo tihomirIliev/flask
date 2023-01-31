@@ -4,10 +4,9 @@
 
 ### Usage
   - Create IAM user and login to AWS with "aws configure" 
-  - Create Jenkins with Terraform (new AWS EC2 instance). The setup is in folder infra. 
-  - Note: "install_jenkins.sh" must be in the project folder. It contains crucial installion commands  
+  - Create Jenkins with Terraform (new AWS EC2 instance). The setup is in folder "infrastructure".  
   - Navigate to project folder, then run "terraform init" -> "terraform apply"
-  - Setup git (after completing Jenkins instalation) - "ssh-keygen" keys, add the private key (ssh-add id_rsa), the public key in git
+  - Setup git (after completing Jenkins instalation) - "ssh-keygen" keys, add the private key to EC2 instance (ssh-add id_rsa), the public key add in git
 
 ### Configuring Jenkins
 
@@ -16,7 +15,7 @@
 ![selecting_MBP](https://user-images.githubusercontent.com/44411127/215773175-bf94c4d3-f0c4-436c-a76a-4d9cd6f22b6d.PNG)
 
  - Connect Jenkins to Git:
- 	- Create github credentials from type 'ssh username and private key'. 
+ 	- Navigate to "Credentials" tab -> Create github credentials from type 'ssh username and private key'. 
 	- Type your git hub username and add the private key generated in the Jenkins server (EC2 instance)
 
  - Set up of the pipeline:
@@ -29,8 +28,10 @@
 
 ![start_pipeline](https://user-images.githubusercontent.com/44411127/215773339-6515c136-3988-4189-93fc-ac98dac3c1fd.PNG)
  
+### After the deployments are completed, the flask app can be accessed locally on the EC2 instance. In the CLI type "curl <NODE IP>:<NODEPORT>". 
 
-### Tools used
+### Technologies used
+  - AWS (EC2, ECR, IAM)	
   - Terraform
   - Docker 
   - Kind/Kubernetes
