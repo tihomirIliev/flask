@@ -1,4 +1,5 @@
 ### This is Multibranch Pipeline setup for deploying a simple flask application to Kind Kubernetes
+### The deployment uses Service from type NodePort
 ### Three types of branches have to be created - developments, staging, main (production)
 
 ### Usage
